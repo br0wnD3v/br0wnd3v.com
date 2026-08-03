@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anuj Tanwar · Lead Protocol Engineer</title>
+<meta name="description" content="Anuj Tanwar, Lead Protocol Engineer. Derivatives, oracles and on-chain infrastructure across Solana, EVM, Casper, Mina and CreditCoin. Rust, Solidity, TypeScript.">
+<meta property="og:title" content="Anuj Tanwar, Lead Protocol Engineer">
+<meta property="og:description" content="Builds and operates on-chain financial systems: perpetual-futures DEXs, price oracles, liquidation engines, keeper fleets and the infrastructure behind them.">
+<meta property="og:type" content="profile">
+<meta property="og:url" content="https://br0wnd3v.com/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Anuj Tanwar",
+  "jobTitle": "Lead Protocol Engineer",
+  "email": "mailto:bothereum@protonmail.com",
+  "url": "https://br0wnd3v.com/",
+  "sameAs": [
+    "https://github.com/br0wnD3v",
+    "https://x.com/anuj_tnr",
+    "https://www.linkedin.com/in/anuj-tanwar-087738208"
+  ],
+  "knowsAbout": ["Rust", "Solidity", "TypeScript", "Solana", "Ethereum", "DeFi", "Perpetual Futures", "Blockchain Oracles", "Zero-Knowledge Proofs"],
+  "alumniOf": { "@type": "CollegeOrUniversity", "name": "Hansraj College, University of Delhi" },
+  "address": { "@type": "PostalAddress", "addressLocality": "Delhi", "addressCountry": "IN" }
+}
+</script>
+<style>
+  :root {
+    --bg:#0C1116; --panel:#121A22; --panel2:#0E151C; --ink:#E9EDF1; --muted:#8FA0AE;
+    --amber:#F0B429; --amber-dim:#8a6a1c40; --green:#3DDC84; --red:#FF6B6B;
+    --rule:#1E2933; --chrome:#161F28; --link:#7FC8E8;
+  }
+  :root[data-theme="light"] {
+    --bg:#F7F5F0; --panel:#FFFFFF; --panel2:#F0EDE6; --ink:#171C21; --muted:#5D6A75;
+    --amber:#9C6B00; --amber-dim:#9c6b0022; --green:#0E8A4C; --red:#C0392B;
+    --rule:#DDD8CC; --chrome:#EAE6DC; --link:#0F6E96;
+  }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:16px; line-height:1.6;
+    transition:background .25s, color .25s;
+  }
+  ::selection { background:var(--amber); color:#10141a; }
+  .mono { font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .wrap { max-width:1220px; margin:0 auto; padding:40px 28px 72px; }
+  a { color:var(--link); text-decoration:none; }
+  a:hover { text-decoration:underline; text-underline-offset:3px; }
+  a:focus-visible, button:focus-visible { outline:2px solid var(--amber); outline-offset:2px; border-radius:3px; }
+
+  /* ---------- terminal hero ---------- */
+  .term {
+    background:var(--panel2); border:1px solid var(--rule); border-radius:10px;
+    overflow:hidden; box-shadow:0 12px 40px #00000045;
+  }
+  .term-bar {
+    background:var(--chrome); padding:10px 14px; display:flex; align-items:center; gap:8px;
+    border-bottom:1px solid var(--rule);
+  }
+  .dot { width:11px; height:11px; border-radius:50%; opacity:.85; }
+  .d1{ background:#FF5F57; } .d2{ background:#FEBC2E; } .d3{ background:#28C840; }
+  .term-title { margin-left:8px; color:var(--muted); font-size:.78rem; letter-spacing:.5px; }
+  #themeToggle, #bgmToggle {
+    background:transparent; color:var(--muted); border:1px solid var(--rule);
+    border-radius:14px; padding:2px 12px; cursor:pointer; font-size:.75rem; font-family:"JetBrains Mono",monospace;
+  }
+  #bgmToggle { margin-left:auto; }
+  #themeToggle:hover, #bgmToggle:hover { color:var(--ink); border-color:var(--muted); }
+  #bgmToggle.on { color:var(--amber); border-color:var(--amber); }
+  .term-body { padding:20px 22px 22px; font-family:"JetBrains Mono",ui-monospace,monospace; font-size:.88rem; line-height:1.9; }
+  .tl { white-space:pre-wrap; word-break:break-word; min-height:1.9em; }
+  .prompt { color:var(--green); }
+  .cmd { color:var(--ink); }
+  .ts { color:var(--muted); }
+  .tag { color:var(--amber); }
+  .up { color:var(--green); } .dn { color:var(--red); }
+  .cursor {
+    display:inline-block; width:.55em; height:1.05em; background:var(--amber);
+    vertical-align:text-bottom; animation:blink 1.05s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity:0; } }
+  @media (prefers-reduced-motion: reduce) { .cursor { animation:none; } }
+
+  .who { padding:26px 22px 4px; }
+  h1.name { font-family:"Space Grotesk",sans-serif; font-size:clamp(1.7rem, 4.5vw, 2.5rem); font-weight:700; letter-spacing:.2px; margin:0; }
+  .role-line { color:var(--amber); font-family:"JetBrains Mono",monospace; font-size:.82rem; letter-spacing:1.6px; text-transform:uppercase; margin:8px 0 14px; }
+  .contact { color:var(--muted); font-size:.9rem; display:flex; flex-wrap:wrap; gap:4px 18px; padding:0 22px; }
+  .avail { color:var(--muted); font-size:.82rem; font-style:italic; margin:10px 0 0; padding:0 22px; }
+  .actions { display:flex; gap:10px; flex-wrap:wrap; padding:16px 22px 24px; }
+  .btn {
+    display:inline-block; border-radius:6px; padding:8px 18px; font-size:.86rem; font-weight:600;
+    font-family:"JetBrains Mono",monospace; letter-spacing:.3px;
+    background:var(--amber); color:#14181d !important; border:1px solid transparent;
+  }
+  .btn.ghost { background:transparent; color:var(--amber) !important; border:1px solid var(--amber); }
+  .btn:hover { text-decoration:none; filter:brightness(1.08); }
+
+  /* ---------- ticker strip ---------- */
+  .tape {
+    display:flex; flex-wrap:wrap; align-items:baseline; gap:10px 0;
+    border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);
+    padding:14px 0; margin:26px 0 8px; font-family:"JetBrains Mono",monospace;
+  }
+  .cell { display:flex; align-items:baseline; gap:9px; padding:0 22px; border-left:1px solid var(--rule); }
+  .cell:first-child { border-left:none; padding-left:0; }
+  .cell .v { font-weight:700; font-size:1.25rem; color:var(--amber); font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .cell .v::after { content:"▲"; color:var(--green); font-size:.7rem; margin-left:5px; vertical-align:2px; }
+  .cell .k { color:var(--muted); font-size:.72rem; letter-spacing:.8px; text-transform:uppercase; }
+  @media (max-width:900px){
+    .tape { display:grid; grid-template-columns:1fr 1fr; gap:12px 0; }
+    .cell:nth-child(odd){ border-left:none; padding-left:0; }
+    .cell:nth-child(even){ padding-left:18px; }
+  }
+  @media (max-width:420px){
+    .tape { grid-template-columns:1fr; }
+    .cell { border-left:none !important; padding-left:0 !important; }
+  }
+
+  /* ---------- sections ---------- */
+  h2.sec {
+    font-family:"JetBrains Mono",monospace; font-size:.85rem; font-weight:500; letter-spacing:.5px;
+    color:var(--amber); margin:44px 0 16px; display:flex; align-items:center; gap:12px;
+  }
+  h2.sec::after { content:""; flex:1; height:1px; background:var(--rule); }
+  .summary { font-size:1.02rem; }
+  .skills { display:grid; gap:8px; font-size:.93rem; }
+  .skills b { color:var(--amber); font-weight:600; font-family:"JetBrains Mono",monospace; font-size:.8rem; letter-spacing:.5px; }
+
+  /* ---------- ledger (experience) ---------- */
+  .entry { display:grid; grid-template-columns:118px 1fr; gap:0 22px; margin-bottom:26px; }
+  .rail { font-family:"JetBrains Mono",monospace; font-size:.76rem; color:var(--muted); text-align:right; padding-top:5px; line-height:1.7; }
+  .rail .live { color:var(--green); }
+  .rail .d, .rail .pt { display:block; }
+  .body-e { border-left:1px solid var(--rule); padding-left:22px; position:relative; }
+  .body-e::before {
+    content:""; position:absolute; left:-4px; top:9px; width:7px; height:7px; border-radius:50%;
+    background:var(--amber);
+  }
+  .rt { font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:1.12rem; }
+  .sub { color:var(--muted); font-size:.88rem; margin:2px 0 8px; }
+  ul { margin:8px 0 0; padding-left:20px; }
+  li { margin:6px 0; font-size:.95rem; }
+  li::marker { color:var(--amber); }
+  .kw { font-family:"JetBrains Mono",monospace; font-size:.87em; font-variant-numeric:tabular-nums; color:var(--ink); background:var(--amber-dim); padding:0 4px; border-radius:3px; }
+  strong { font-weight:650; }
+  @media (max-width:680px){
+    .wrap { padding:18px 14px 48px; }
+    .entry { grid-template-columns:1fr; }
+    .rail { text-align:left; padding-bottom:4px; }
+    .rail .d, .rail .pt { display:inline; }
+    .rail .d + .d::before { content:" - "; }
+    .rail .pt::before { content:" · "; }
+    .rail .live::before { content:" "; }
+    .body-e { border-left:none; padding-left:0; }
+    .body-e::before { display:none; }
+    .term-body { padding:14px 14px 16px; font-size:.74rem; line-height:1.75; }
+    .who { padding:20px 14px 2px; }
+    .contact, .avail { padding:0 14px; }
+    .actions { padding:14px 14px 20px; }
+    .btn { flex:1; text-align:center; }
+    body { font-size:15px; }
+    .term-title { display:none; }
+  }
+
+  /* ---------- projects ---------- */
+  .grid { columns:300px 3; column-gap:14px; }
+  .card {
+    background:var(--panel); border:1px solid var(--rule); border-radius:8px; padding:14px 16px;
+    font-size:.92rem; break-inside:avoid; margin-bottom:14px; transition:border-color .2s;
+  }
+  .card:hover { border-color:var(--amber); }
+  .card b { font-family:"Space Grotesk",sans-serif; }
+  .card .t { color:var(--muted); font-family:"JetBrains Mono",monospace; font-size:.72rem; letter-spacing:.8px; text-transform:uppercase; margin-bottom:5px; }
+  .card .t::before { content:"▸ "; color:var(--amber); }
+
+  /* featured: elekind as a running service */
+  .feature {
+    background:var(--panel); border:1px solid var(--amber); border-radius:8px;
+    padding:16px 20px; margin-bottom:16px; font-size:.93rem;
+    box-shadow:0 0 0 3px var(--amber-dim);
+  }
+  .f-head { font-family:"JetBrains Mono",monospace; font-size:.95rem; font-weight:700; color:var(--ink); }
+  .f-dot { display:inline-block; width:9px; height:9px; border-radius:50%; background:var(--green); margin-right:8px; box-shadow:0 0 6px var(--green); }
+  .f-meta { font-family:"JetBrains Mono",monospace; font-size:.78rem; color:var(--muted); line-height:1.8; margin:6px 0 10px; padding-left:17px; }
+  .f-meta .up { color:var(--green); }
+  .f-meta .tag { color:var(--amber); }
+  .feature p { margin:0; }
+
+  .edu { font-size:.95rem; }
+  footer { margin-top:52px; border-top:1px solid var(--rule); padding-top:18px; color:var(--muted); font-size:.82rem; }
+  footer .mono { color:var(--green); }
+
+  /* ---------- print: clean A4 document ---------- */
+  @media print {
+    :root, :root[data-theme="dark"], :root[data-theme="light"] {
+      --bg:#fff; --panel:#fff; --panel2:#fff; --ink:#1a1a1a; --muted:#555;
+      --amber:#13455c; --amber-dim:#fff; --green:#13455c; --red:#555;
+      --rule:#c9d4da; --chrome:#fff; --link:#13455c;
+    }
+    body { font-size:10.1pt; line-height:1.36; }
+    .wrap { max-width:none; padding:0; }
+    .term { border:none; box-shadow:none; border-radius:0; }
+    .term-bar, .term-body, .actions, #themeToggle, footer .noprint, .tape { display:none !important; }
+    .who, .contact, .avail { padding:0; }
+    h1.name { font-size:23pt; }
+    .entry { grid-template-columns:1fr; margin-bottom:12px; }
+    .entry li { break-inside:avoid; }
+    .rt, .sub { break-after:avoid-page; }
+    .rail { text-align:left; }
+    .rail .d, .rail .pt { display:inline; }
+    .rail .d + .d::before { content:" - "; }
+    .rail .pt::before { content:" · "; }
+    .body-e { border-left:none; padding-left:0; }
+    .body-e::before { display:none; }
+    .grid { columns:1; }
+    .card { border:none; padding:2px 0; margin-bottom:6px; }
+    .feature { border:none; box-shadow:none; padding:2px 0; }
+    .f-dot { display:none; }
+    .f-meta { padding-left:0; }
+    h2.sec { margin:14px 0 8px; }
+    @page { size:A4; margin:10mm 12mm; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="term" aria-label="Terminal introduction">
+  <div class="term-bar">
+    <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
+    <span class="term-title mono">anuj@br0wnd3v ~ (mainnet)</span>
+    <button id="bgmToggle" aria-label="Toggle background music" title="background music">♪ off</button>
+    <button id="themeToggle" aria-label="Toggle color theme">theme</button>
+  </div>
+  <div class="term-body" id="termBody" aria-live="off">
+    <div class="tl" data-line="&lt;span class='prompt'&gt;$&lt;/span&gt; &lt;span class='cmd'&gt;whoami&lt;/span&gt;"></div>
+    <div class="tl" data-line="anuj tanwar · protocol engineer · derivatives, oracles &amp;amp; keepers"></div>
+    <div class="tl" data-line="&lt;span class='prompt'&gt;$&lt;/span&gt; &lt;span class='cmd'&gt;tail -f career.log&lt;/span&gt;"></div>
+    <div class="tl" data-line="&lt;span class='ts'&gt;[2026-07]&lt;/span&gt; &lt;span class='tag'&gt;oracle    &lt;/span&gt;10,188,953 signed price batches in first 100 days &lt;span class='up'&gt;▲&lt;/span&gt;"></div>
+    <div class="tl" data-line="&lt;span class='ts'&gt;[2026-07]&lt;/span&gt; &lt;span class='tag'&gt;perps     &lt;/span&gt;$890M tenure volume · 941 traders · liq/sl-tp/limit keepers &lt;span class='up'&gt;▲&lt;/span&gt;"></div>
+    <div class="tl" data-line="&lt;span class='ts'&gt;[2026-05]&lt;/span&gt; &lt;span class='tag'&gt;vaults    &lt;/span&gt;diamond pools co-founder · sole-author anchor protocol · 670+ tests &lt;span class='up'&gt;▲&lt;/span&gt;"></div>
+    <div class="tl" data-line="&lt;span class='ts'&gt;[2026-06]&lt;/span&gt; &lt;span class='tag'&gt;security  &lt;/span&gt;third-party audit remediation · 33 findings triaged · crit/high/med patched &lt;span class='up'&gt;▲&lt;/span&gt;"></div>
+    <div class="tl" data-line="&lt;span class='ts'&gt;[2023-25]&lt;/span&gt; &lt;span class='tag'&gt;zk        &lt;/span&gt;doot oracle founder · 2yr solo ops · pallas/schnorr verifier on arbitrum &lt;span class='up'&gt;▲&lt;/span&gt;"></div>
+    <div class="tl" data-line="&lt;span class='ts'&gt;[2025-26]&lt;/span&gt; &lt;span class='tag'&gt;edge-ai   &lt;/span&gt;elekind · thermal yolov8 detection · deployed w/ cg forest dept &lt;span class='up'&gt;▲&lt;/span&gt;"></div>
+    <div class="tl" data-line="&lt;span class='ts'&gt;[22...26]&lt;/span&gt; &lt;span class='tag'&gt;footprint &lt;/span&gt;3,400+ commits · 190 repos · solana · evm · casper · mina · creditcoin &lt;span class='dn'&gt;∎&lt;/span&gt;"></div>
+    <div class="tl" data-line="&lt;span class='prompt'&gt;$&lt;/span&gt; &lt;span class='cmd'&gt;ps -o pid,etime,cmd | grep build&lt;/span&gt;"></div>
+    <div class="tl" data-line="&lt;span class='ts'&gt; 1337&lt;/span&gt;  &lt;span class='up'&gt;1248-06:33:07&lt;/span&gt;  /bin/bash ./building_shit.sh --since=2023 --mode=relentless"></div>
+    <div class="tl"><span class="cursor" aria-hidden="true"></span></div>
+  </div>
+  <div class="who">
+    <h1 class="name">Anuj Tanwar</h1>
+    <div class="role-line">Lead Protocol Engineer / Derivatives · Oracles · On-Chain Infra</div>
+  </div>
+  <div class="contact">
+    <span>Delhi, India</span>
+    <span><a href="mailto:bothereum@protonmail.com">bothereum@protonmail.com</a></span>
+    <span><a href="https://github.com/br0wnD3v">github/br0wnD3v</a></span>
+    <span><a href="https://x.com/anuj_tnr">x/anuj_tnr</a></span>
+    <span><a href="https://www.linkedin.com/in/anuj-tanwar-087738208">linkedin</a></span>
+  </div>
+  <div class="avail">Remote (global) · open to relocation · IST, flexible to US / EU / Asia hours</div>
+  <div class="actions">
+    <a class="btn" href="cv_anuj_tanwar.pdf" download>download_pdf</a>
+    <a class="btn ghost" href="mailto:bothereum@protonmail.com">get_in_touch</a>
+  </div>
+</header>
+
+<div class="tape" role="list" aria-label="Key verified numbers">
+  <div class="cell" role="listitem"><span class="v">10.2M</span><span class="k">oracle batches / 100d</span></div>
+  <div class="cell" role="listitem"><span class="v">$890M</span><span class="k">tenure volume</span></div>
+  <div class="cell" role="listitem"><span class="v">47%</span><span class="k">of a live perps program</span></div>
+  <div class="cell" role="listitem"><span class="v">5</span><span class="k">chains shipped</span></div>
+</div>
+
+<h2 class="sec">// summary</h2>
+<p class="summary">
+Protocol engineer for on-chain derivatives. Led protocol engineering on Adrena, a live Solana perpetual-futures
+DEX ($9.7B lifetime volume): the core Anchor program, a multi-provider oracle publishing <strong>~94k signed price
+batches per day</strong>, liquidation / stop-loss / limit-order keeper engines, security-audit remediation,
+DAO-governed releases and 24/7 node ops. 3+ years shipping production financial infrastructure in
+<strong>Rust, Anchor, Solidity and TypeScript</strong> across <strong>Solana, EVM, Casper, Mina and CreditCoin</strong>,
+working daily with pool-to-peer perpetuals mechanics (margin, leverage, funding, liquidation) and TradFi market data:
+US Treasury rates, the VIX, Nikkei 225 with FX conversion, S&amp;P 500 and single-stock synthetics gated by US / JPX
+venue calendars. Now co-founding <strong>Diamond Pools</strong>, a quantified yield protocol on Solana.
+</p>
+
+<h2 class="sec">// skills</h2>
+<div class="skills">
+  <div><b>lang</b> &nbsp;Rust · Solidity · TypeScript / Node.js · Python · o1js · C (bare-metal embedded)</div>
+  <div><b>chain</b> &nbsp;Anchor / Solana programs · EVM (Foundry, Hardhat, OpenZeppelin) · Casper (Odra) · Mina zkApps · proxy patterns (UUPS / Transparent)</div>
+  <div><b>trading</b> &nbsp;pool-to-peer perps mechanics · margin &amp; leverage · funding-rate design · liquidation engines · SL/TP &amp; limit-order execution · keeper automation · market-hours gating · backtesting &amp; parameter sweeps</div>
+  <div><b>oracle</b> &nbsp;multi-provider consensus (min-agree) · signed price batching · Switchboard · Chainlink VRF · API3 · TradFi data onboarding (FRED, index feeds, FX) · Pallas/Schnorr verification · quantum-entropy RNG</div>
+  <div><b>backend</b> &nbsp;PostgreSQL · Redis · Prisma / Supabase · Stripe billing · REST / WebSocket (Axum, Fastify) · The Graph · IPFS · Next.js</div>
+  <div><b>infra</b> &nbsp;Solana RPC + Yellowstone gRPC (Geyser) node ops · verifiable builds + DAO releases · systemd · AWS (S3, RDS) / Render / Railway / Vercel · audit remediation · static analysis · invariant &amp; differential testing (LiteSVM)</div>
+  <div><b>edge-ai</b> &nbsp;YOLOv8 training &amp; dataset pipelines · Raspberry Pi + Coral Edge TPU · thermal imaging · STM32 bare-metal C</div>
+</div>
+
+<h2 class="sec">// experience</h2>
+
+<div class="entry">
+  <div class="rail"><span class="d">may 2026</span><span class="d live">▸ present</span></div>
+  <div class="body-e">
+    <div class="rt"><a href="https://diamondpools.app">Diamond Pools</a> · Co-founder, Contracts &amp; Backend</div>
+    <div class="sub">Quantified yield protocol on Solana built around ORE mining (diamondpools.app) · 3-person team: product / quant / engineering</div>
+    <ul>
+      <li>Sole author of the <strong>Anchor vault protocol</strong> across two generations (57-instruction v2): share-token NAV accounting, three risk-tier buckets, multi-engine strategy routing and a bounded referral treasury, hardened with <span class="kw">290+ Rust unit tests and 380+ integration cases</span> incl. an executed ERC-4626-style inflation-attack test.</li>
+      <li>Built the entire <strong>off-chain layer</strong> solo: strategy keepers, crank/settlement services, analytics ETL (Postgres + REST/WS), referral indexer with attestation-based settlement, typed SDK/ABI pipeline and most of the frontend.</li>
+      <li>Ran a <span class="kw">3,120-trial strategy-parameter sweep</span> (zero failures) over ~1 GB of on-chain mining datasets with Calmar/stability ranking and a documented promotion procedure, iterating with the team's quant.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="entry">
+  <div class="rail"><span class="d">dec 2025</span><span class="d">jul 2026</span></div>
+  <div class="body-e">
+    <div class="rt"><a href="https://www.adrena.trade/">Adrena</a> · Lead Protocol Engineer</div>
+    <div class="sub">Live Solana perpetual-futures DEX (adrena.trade) · $9.7B lifetime volume, $195M peak day · winding down 2026</div>
+    <ul>
+      <li>Became the <strong>#1 contributor to the live mainnet Anchor program</strong> (131 instructions) within 7 months of joining the ~5-person team: 47% of program commits and ~35% of the surviving 118k-line Rust codebase. During this tenure the protocol processed <span class="kw">~$890M volume across 941 traders and 6,274 positions (~$3.9M avg/day)</span>.</li>
+      <li>Designed and shipped the <strong>Virtual Funding Rate engine</strong> (open-interest-imbalance-driven cumulative funding indices with per-market caps) and the synthetic RWA/commodity pool system: gold, silver, WTI crude, S&amp;P 500 and NVDA perp markets with signed market-hours attestations and advance-only anti-replay, the platform's first US-equity perps, live on mainnet Apr–May 2026.</li>
+      <li>Authored the <strong>multi-provider oracle system</strong> (~89% of the oracle state module; min-agree consensus across providers incl. Switchboard) and MrOracle, the Rust price-publishing keeper that landed <span class="kw">10.2M signed price batches (~82M price points) in its first 100 days, sustaining ~94k/day over the trailing 8 weeks</span>, using versioned transactions + address-lookup-tables under Solana's tx-size cap with multi-tier RPC fallback.</li>
+      <li>Owned a <strong>third-party security-audit remediation</strong> end-to-end: triaged 33 findings, patched all applicable critical/high/medium (incl. two-step admin transfer with 48h timelock), executed zero-realloc account migrations across three schema versions, and ran SHA-256-pinned verifiable-build releases through Realms DAO governance.</li>
+      <li>Sole author of the <strong>liquidation, stop-loss/take-profit and limit-order execution keepers</strong>, the market-hours gate and the buyback service (Rust + TS); #2 contributor to the Yellowstone-gRPC event-driven execution keeper (Jito bundle submission).</li>
+      <li>Operated the fleet 24/7 at <span class="kw">~95%+ availability</span> with weekly maintenance windows; co-maintained the staking keepers behind <span class="kw">312k protocol-lifetime reward claims (~153M ADX + $4.0M USDC)</span>.</li>
+      <li>Operated Adrena's dedicated <strong>non-voting RPC + Yellowstone gRPC (Geyser) node</strong> (Agave; 96-core / 755 GB / 7 TB NVMe): <span class="kw">~80 req/s at 99.9% HTTP success</span>, 7 external gRPC subscribers, TLS + auth-gated behind nginx.</li>
+      <li>Ran the 42-day <strong>"Forge" trading-competition infrastructure</strong> (428 registrants, <span class="kw">434k hourly scoring snapshots at 99.2% coverage</span>), the public competition data API and the Discord observability bot; shipped 110+ merged PRs on the Next.js trading frontend.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="entry">
+  <div class="rail"><span class="d">mar 2026</span><span class="d">jul 2026</span><span class="pt">part-time</span></div>
+  <div class="body-e">
+    <div class="rt"><a href="https://terminal.autonom.cc">Autonom</a> · Backend Engineer, Oracle &amp; Market-Data (Rust)</div>
+    <div class="sub">Upstream signed price-data provider for Adrena (terminal.autonom.cc) · first collaboration Aug 2025</div>
+    <ul>
+      <li>Built <strong>Rust (Axum) market-data integrations</strong> onboarding TradFi instruments into the production feed: US Treasury-bill rates (FRED), the VIX, Nikkei 225 (JPY to USD) and US- and HK-listed equities (HKD to USD); wrote provider-integration test suites across five data vendors.</li>
+      <li>Extended the operator's <strong>market-hours system</strong> with a JPX venue calendar and per-feed open/close windows embedded in the signed Adrena-compatible price payloads.</li>
+      <li>2025: built a <strong>dual-chain quantum-entropy RNG oracle</strong> (single Rust binary with EVM + Casper lanes; ANU quantum entropy; Merkle commit-fulfill flow) with systemd deployment runbooks.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="entry">
+  <div class="rail"><span class="d">oct 2023</span><span class="d">dec 2025</span></div>
+  <div class="body-e">
+    <div class="rt"><a href="https://docs.doot.foundation">Doot Foundation</a> · Founder &amp; Sole Engineer</div>
+    <div class="sub">Trust-minimized zero-knowledge price oracle for Mina Protocol + Zeko L2 · zkIgnite Cohort 2 grantee</div>
+    <ul>
+      <li>Founded and solely built and operated for ~2 years a <strong>ZK price oracle</strong> aggregating 10 assets from 20+ data providers on a 10-minute cadence (Mina devnet + Zeko L2): o1js smart contracts with recursive ZkPrograms and off-chain-state rollups, every provider response Schnorr-signed before aggregation and historical aggregates pinned to IPFS.</li>
+      <li>Reimplemented <strong>Mina's Pallas-curve Schnorr signature verification from scratch in Solidity</strong> (~2.9k LOC) and deployed it to Arbitrum One mainnet (mirrored to Ethereum via LayerZero) so EVM contracts can verify Mina-signed oracle data on-chain.</li>
+      <li>Published the full integration surface: <strong>@dootfoundation/client</strong> npm SDK (12 releases, automatic API to L2 to L1 fallback), REST API, developer dashboard and docs; also primary author of <strong>Fizk Protocol's (formerly zkUSD) oracle-price-provider</strong>: the stablecoin's multi-provider signed price service, with certificate-pinned DNS-over-HTTPS provider fetching, resolver fallback and TTL caching (Dockerized, 2025).</li>
+    </ul>
+  </div>
+</div>
+
+<div class="entry">
+  <div class="rail"><span class="d">mar 2023</span><span class="d">feb 2024</span></div>
+  <div class="body-e">
+    <div class="rt"><a href="https://github.com/ElementalBlockchain">Elemental Blockchain</a> · Smart-Contract &amp; Full-Stack Engineer</div>
+    <div class="sub">Contract engagement</div>
+    <ul>
+      <li>Authored the <strong>core Trading + Positions (ERC-721) contracts for POP! Protocol</strong>, an EVM perpetual-positions DEX with an off-chain sequencer-signed order flow, and built its trading interface.</li>
+      <li>Lead contributor to <strong>EBSS</strong>, an on-chain B2B invoicing/escrow platform on Polygon: built the frontend, The Graph subgraph and the mainnet deployment, and extended the escrow contracts (ERC-721 claims, Kleros arbitration interfaces).</li>
+      <li>Solo-built <strong>"Struction," a tokenized real-estate / RWA shares platform</strong> (ERC-20 shares + The Graph subgraph + Next.js), deployed to Sepolia.</li>
+    </ul>
+  </div>
+</div>
+
+<h2 class="sec">// projects</h2>
+
+<div class="feature">
+  <div class="f-head"><span class="f-dot" aria-hidden="true"></span>elekind.service · <a href="https://gajdastak.com">Gaj Dastak</a> · elephant detection &amp; deterrence</div>
+  <div class="f-meta">
+    Loaded: <span class="tag">field-deployed</span> · Chhattisgarh Forest Department · 2026<br>
+    Active: <span class="up">active (running)</span> · thermal + IR cameras · Coral Edge TPU · YOLOv8 · RPi 4B
+  </div>
+  <p>Co-founder at Celeron IT Solutions. The whole pipeline is mine: the device software, the YOLOv8 models
+  (personally collected and annotated the dataset in zoos and reserves, then field-tested), SMS/HTTP alerting,
+  acoustic deterrence, the STM32 pan firmware and the cloud ingestion backend. One unit stands watch for
+  elephant crossings with the Chhattisgarh Forest Department. Device code proprietary.</p>
+</div>
+
+<div class="grid">
+  <div class="card"><div class="t">security tooling</div><b><a href="https://crates.io/crates/shadowhare">Shadowhare</a></b>: Starknet static security analyzer. 22.5k LOC Rust, 71 detectors, 156 tests, on crates.io. Sole author.</div>
+  <div class="card"><div class="t">rwa perps</div><b><a href="https://github.com/PixieDust0304/ctc-perps-rwa">pErp-man</a></b>: commodity perps DEX (gold/silver/oil/platinum) on CreditCoin testnet. Top contributor; 15 contracts (10 UUPS-upgradeable), on-chain DAO ownership handoff, Postgres settlement keeper.</div>
+  <div class="card"><div class="t">live product</div><b><a href="https://casperdraw.xyz">Casper Draw</a></b>: provably-fair instant-draw product on Casper. Sole author of contracts, backend and UI; designed the payout-probability and sustainability models and the quantum-entropy commit-reveal RNG pipeline; plus a whitelabel EVM platform (Chainlink VRF v2.5).</div>
+  <div class="card"><div class="t">privacy r&amp;d</div><b>Private prediction markets</b>: commitment/nullifier note scheme on Casper (Blake2b, on-chain Merkle tree, path-verified claims; Odra/Rust) and a bearer-token o1js prototype on Mina.</div>
+  <div class="card"><div class="t">mina defi</div><b>msUSD + prediction market</b>: overcollateralized algorithmic stablecoin runtime (solo) and a prediction-market zkApp settled by my own Doot oracle (Zeko devnet).</div>
+  <div class="card"><div class="t">exchange study</div><b>CEX product-surface replica</b>: self-directed rebuild of a centralized exchange client, mobile (React Native/Expo) and web (Next.js via react-native-web), to internalize exchange product mechanics end to end.</div>
+  <div class="card"><div class="t">saas billing</div><b><a href="https://www.searchleads.co/">SearchLeads</a></b>: Stripe billing engine for a live B2B SaaS. Credit + pay-as-you-go plans, proration, idempotent webhooks (Node/TS, Prisma, Supabase).</div>
+</div>
+
+<h2 class="sec">// open-source &amp; education</h2>
+<ul>
+  <li>Open PR in <b>o1-labs/zkapp-cli</b> (Zeko L2 scaffold, +264/-30 across 12 files, 85.7% patch coverage); issues in wagmi, viem, graph-tooling, proto-kit.</li>
+  <li><b>Encode Club ZK Bootcamp</b> (Q4 2023) · <b>Mina Navigators / zkIgnite Cohort 2</b> grant program.</li>
+  <li class="edu"><b>B.Sc. Physical Sciences with Computer Science</b>, Hansraj College, University of Delhi · 2019–2022 · CGPA 8.9/10.</li>
+</ul>
+
+<footer>
+  <div class="mono noprint">$ echo "open to interesting problems" &amp;&amp; exit 0</div>
+  <div>© 2026 Anuj Tanwar · br0wnd3v.com<span class="noprint"> · this page prints as a clean A4 resume (Ctrl/Cmd+P)</span></div>
+</footer>
+
+</div>
+<audio id="bgm" src="theme.mp3" loop preload="auto"></audio>
+<script>
+  (function () {
+    var bgm = document.getElementById('bgm');
+    var bgmBtn = document.getElementById('bgmToggle');
+    bgm.volume = 0.5;
+    var bgmPref = localStorage.getItem('bgm');
+    function setBtn(on) { bgmBtn.textContent = on ? '♪ on' : '♪ off'; bgmBtn.classList.toggle('on', on); }
+    function tryPlay() {
+      if (localStorage.getItem('bgm') === 'off') return;
+      bgm.play().then(function () { setBtn(true); }).catch(function () {
+        var once = function () {
+          if (localStorage.getItem('bgm') === 'off') return;
+          bgm.play().then(function () { setBtn(true); }).catch(function () {});
+          removeEventListener('pointerdown', once);
+          removeEventListener('keydown', once);
+        };
+        addEventListener('pointerdown', once);
+        addEventListener('keydown', once);
+      });
+    }
+    bgmBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (bgm.paused) { localStorage.setItem('bgm', 'on'); bgm.play().then(function(){ setBtn(true); }).catch(function(){}); }
+      else { bgm.pause(); localStorage.setItem('bgm', 'off'); setBtn(false); }
+    });
+    var cue = new URLSearchParams(location.search).get('cue') === 'true';
+    if (cue && bgmPref !== 'off') tryPlay();
+
+    var root = document.documentElement;
+    var saved = localStorage.getItem('theme');
+    if (saved) root.setAttribute('data-theme', saved);
+    else if (!matchMedia('(prefers-color-scheme: dark)').matches) root.setAttribute('data-theme', 'light');
+    document.getElementById('themeToggle').addEventListener('click', function () {
+      var cur = root.getAttribute('data-theme') || 'dark';
+      var next = cur === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+
+    var lines = document.querySelectorAll('.tl[data-line]');
+    var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function decode(s) { var t = document.createElement('textarea'); t.innerHTML = s; return t.value; }
+    if (reduced) {
+      lines.forEach(function (el) { el.innerHTML = decode(el.getAttribute('data-line')); });
+      return;
+    }
+    var i = 0;
+    function typeLine() {
+      if (i >= lines.length) return;
+      var el = lines[i];
+      var html = decode(el.getAttribute('data-line'));
+      var tmp = document.createElement('div');
+      tmp.innerHTML = html;
+      var text = tmp.textContent;
+      var isCmd = text.indexOf('$') === 0;
+      if (!isCmd) {
+        el.innerHTML = html;
+        el.style.opacity = 0;
+        el.style.transition = 'opacity .18s';
+        requestAnimationFrame(function () { el.style.opacity = 1; });
+        i++; setTimeout(typeLine, 150);
+        return;
+      }
+      var pos = 0;
+      var iv = setInterval(function () {
+        pos++;
+        el.textContent = text.slice(0, pos);
+        if (pos >= text.length) {
+          clearInterval(iv);
+          el.innerHTML = html;
+          i++; setTimeout(typeLine, 220);
+        }
+      }, 34);
+    }
+    setTimeout(typeLine, 300);
+  })();
+</script>
+</body>
+</html>
