@@ -203,4 +203,25 @@
   document.addEventListener('visibilitychange', function () { syncMotion(); syncScope(); });
   musicLabel();
   syncMotion();
+  // Expand and collapse <details> smoothly; reduced motion keeps the native instant toggle.
+  Array.prototype.forEach.call(document.querySelectorAll('details'), function (d) {
+    var summary = d.querySelector('summary');
+    if (!summary) return;
+    summary.addEventListener('click', function (e) {
+      if (reduced.matches || !d.animate) return;
+      e.preventDefault();
+      var start = d.getBoundingClientRect().height;
+      if (d._anim) { d._anim.onfinish = null; d._anim.cancel(); }
+      var closing = d.open && !d._closing;
+      d._closing = closing;
+      d.open = true;
+      var end = closing ? summary.offsetHeight + (d.offsetHeight - d.clientHeight) : d.offsetHeight;
+      d.style.overflow = 'hidden';
+      d._anim = d.animate({ height: [start + 'px', end + 'px'] }, { duration: 340, easing: 'cubic-bezier(.4,0,.2,1)' });
+      d._anim.onfinish = function () {
+        if (d._closing) d.open = false;
+        d._closing = false; d._anim = null; d.style.overflow = '';
+      };
+    });
+  });
 })();

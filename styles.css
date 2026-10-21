@@ -274,3 +274,6 @@ footer{flex-wrap:wrap;line-height:1.7}
 @media print{.architecture,.capabilities{display:none}}
 
 .more-points{display:block}
+.more-points ul{display:grid;grid-template-columns:1fr 1fr;gap:20px 56px}
+.case .more-points li{margin:0}
+@media(max-width:900px){.more-points ul{grid-template-columns:1fr}}

@@ -17,7 +17,7 @@ try { var savedTheme=localStorage.getItem('workbench-theme'); if(savedTheme==='d
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Person","name":"Anuj Tanwar","jobTitle":"Lead Protocol Engineer","email":"mailto:bothereum@protonmail.com","url":"https://br0wnd3v.com/","sameAs":["https://t.me/AJCooks","https://github.com/br0wnD3v","https://x.com/anuj_tnr","https://www.linkedin.com/in/anuj-tanwar-087738208"],"knowsAbout":["Rust","Solidity","TypeScript","Solana","EVM","DeFi","Perpetual Futures","Blockchain Oracles","Zero-Knowledge Proofs"],"alumniOf":{"@type":"CollegeOrUniversity","name":"Hansraj College, University of Delhi"},"address":{"@type":"PostalAddress","addressLocality":"Delhi","addressCountry":"IN"}}
 </script>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=af52bd6a">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -174,10 +174,10 @@ try { var savedTheme=localStorage.getItem('workbench-theme'); if(savedTheme==='d
 <div class="case-top"><div><p class="case-id">03 · AUTOMATION &amp; CUSTODY</p><h3>WhiteKnight</h3><p class="role-label">Co-founder, Protocol &amp; Backend<span>Aug 2026 - Oct 2026 · Mainnet program</span></p><div class="case-links"><a href="https://github.com/WhiteKnight-Solana">GitHub ↗</a></div><div class="facts"><div class="fact"><strong>Mainnet</strong><span>custody program with on-chain spending limits</span></div></div></div>
 <div><p class="case-lead">Delivered a mainnet product across Rust/Anchor custody, a Node.js operator, PostgreSQL-backed middleware and most of the Next.js app.</p><ul>
 <li><strong>Consent enforced on-chain.</strong> Built the Rust/Anchor custody program with user-set fee ceilings, cumulative per-round spending limits and permissionless collection for a separate on-chain game.</li>
-<li><strong>Recovery from chain state.</strong> Built Node.js settlement and ticket recovery independent of the database roster, plus accounting reconciliation and scheduled safety checks. Tested custody and claims in LiteSVM using the upstream program's mainnet bytecode and account snapshots.</li>
 </ul></div></div>
 <details class="arch-details"><summary>More detail and system architecture</summary><div class="detail-content more-points"><ul>
 <li><strong>Strategy outside the custody boundary.</strong> Moved strategy into replaceable operators while preserving account layouts through a mainnet upgrade. Coordinated the changed instruction interface across ABI, SDK and clients.</li>
+<li><strong>Recovery from chain state.</strong> Built Node.js settlement and ticket recovery independent of the database roster, plus accounting reconciliation and scheduled safety checks. Tested custody and claims in LiteSVM using the upstream program's mainnet bytecode and account snapshots.</li>
 </ul></div>
 <figure class="architecture">
 <figcaption><span class="label">WhiteKnight / System architecture</span><p>Users authorize spending and fees on-chain. Operators choose strategy within those limits; custody validation happens before the upstream game is called.</p></figcaption>
@@ -238,6 +238,6 @@ try { var savedTheme=localStorage.getItem('workbench-theme'); if(savedTheme==='d
 </div>
 <audio id="bgm" src="theme.mp3" loop preload="none"></audio>
 <script src="theme-waveform.js" defer></script>
-<script src="app.js" defer></script>
+<script src="app.js?v=c5416618" defer></script>
 </body>
 </html>
