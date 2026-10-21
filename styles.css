@@ -272,3 +272,5 @@ footer{flex-wrap:wrap;line-height:1.7}
   .contact-section{padding-block:56px}
 }
 @media print{.architecture,.capabilities{display:none}}
+
+.more-points{display:block}
