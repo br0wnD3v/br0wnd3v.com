@@ -279,14 +279,3 @@ footer{flex-wrap:wrap;line-height:1.7}
 .more-points ul{display:grid;grid-template-columns:1fr 1fr;gap:20px 56px}
 .case .more-points li{margin:0}
 @media(max-width:900px){.more-points ul{grid-template-columns:1fr}}
-
-/* A readable technical index, visible without expanding the case studies. */
-.technical-section .section-heading>p{max-width:44ch}
-.stack-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 54px}
-.stack-group{min-width:0;border-top:1px solid var(--rule);padding-top:24px}
-.stack-group h3{font-size:1.125rem;font-weight:500;line-height:1.5;margin-bottom:14px;letter-spacing:-.3px}
-.stack-group>p{font:0.875rem/1.95 var(--mono);color:var(--ink);overflow-wrap:anywhere}
-.stack-group .stack-context{font:1rem/1.7 var(--sans);color:var(--muted);margin-top:15px;max-width:66ch}
-@media(max-width:900px){.stack-grid{column-gap:30px}.site-header nav{flex-wrap:wrap}}
-@media(max-width:600px){.stack-grid{grid-template-columns:1fr;gap:28px}.stack-group{padding-top:20px}.stack-group h3{font-size:1.0625rem}.technical-section .section-heading>p{max-width:100%}.site-header nav{justify-content:space-between;gap:8px}.social-links{gap:12px 20px}}
-@media print{.stack-grid{gap:20px}.stack-group{break-inside:avoid}}
