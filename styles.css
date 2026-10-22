@@ -95,6 +95,7 @@ h1{font:bold clamp(48px,6.2vw,116px)/1.02 var(--sans);letter-spacing:-.075em;whi
 .case h3{font-size:1.875rem;font-weight:500;line-height:1.1;letter-spacing:-1.2px;margin-bottom:12px}
 .role-label{font-size:0.875rem;line-height:1.75;color:var(--muted)}.role-label span{display:block}
 .case-links{display:flex;gap:16px;font:0.875rem var(--mono);margin-top:18px}
+.case-links{flex-wrap:wrap}
 .case-lead{font-size:1.1875rem;line-height:1.45;letter-spacing:-.4px;margin-bottom:18px;max-width:68ch}
 .facts{display:flex;gap:27px;flex-wrap:wrap;margin-top:23px}
 .fact strong{display:block;font:1.75rem/1.1 var(--mono);letter-spacing:-1px;color:var(--ink)}
@@ -119,6 +120,7 @@ h1{font:bold clamp(48px,6.2vw,116px)/1.02 var(--sans);letter-spacing:-.075em;whi
 .history h3{font-size:1.125rem;font-weight:500;letter-spacing:-.3px}
 .history .date{font:0.875rem var(--mono);color:var(--muted);white-space:normal}
 .history .job{font:0.875rem/1.6 var(--mono);color:var(--accent);margin-bottom:11px}
+.history .historical-title{display:block;color:var(--muted);margin-top:5px}
 .history p{font-size:1rem;color:var(--muted)}
 .practice{align-self:start;background:var(--panel);border:1px solid var(--rule);padding:30px;border-radius:4px;position:relative;box-shadow:var(--shadow)}
 .practice::before{content:'';position:absolute;top:-1px;left:30px;width:50px;height:4px;background:var(--accent)}
@@ -277,3 +279,14 @@ footer{flex-wrap:wrap;line-height:1.7}
 .more-points ul{display:grid;grid-template-columns:1fr 1fr;gap:20px 56px}
 .case .more-points li{margin:0}
 @media(max-width:900px){.more-points ul{grid-template-columns:1fr}}
+
+/* A readable technical index, visible without expanding the case studies. */
+.technical-section .section-heading>p{max-width:44ch}
+.stack-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 54px}
+.stack-group{min-width:0;border-top:1px solid var(--rule);padding-top:24px}
+.stack-group h3{font-size:1.125rem;font-weight:500;line-height:1.5;margin-bottom:14px;letter-spacing:-.3px}
+.stack-group>p{font:0.875rem/1.95 var(--mono);color:var(--ink);overflow-wrap:anywhere}
+.stack-group .stack-context{font:1rem/1.7 var(--sans);color:var(--muted);margin-top:15px;max-width:66ch}
+@media(max-width:900px){.stack-grid{column-gap:30px}.site-header nav{flex-wrap:wrap}}
+@media(max-width:600px){.stack-grid{grid-template-columns:1fr;gap:28px}.stack-group{padding-top:20px}.stack-group h3{font-size:1.0625rem}.technical-section .section-heading>p{max-width:100%}.site-header nav{justify-content:space-between;gap:8px}.social-links{gap:12px 20px}}
+@media print{.stack-grid{gap:20px}.stack-group{break-inside:avoid}}
