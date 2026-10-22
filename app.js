@@ -7,9 +7,11 @@
   function themeLabel() {
     var dark = root.dataset.theme === 'dark';
     themeButton.textContent = dark ? 'Silver' : 'Graphite';
+    themeButton.setAttribute('aria-pressed', String(dark));
     themeButton.setAttribute('aria-label', dark ? 'Switch to silver theme' : 'Switch to graphite theme');
   }
   themeLabel();
+  requestAnimationFrame(function () { root.classList.add('theme-ready'); });
   themeButton.addEventListener('click', function () {
     root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
     try { localStorage.setItem('workbench-theme', root.dataset.theme); } catch (_) {}
@@ -83,13 +85,16 @@
     field.clearRect(0, 0, 600, 410);
     field.font = '16px Consolas, monospace';
     field.textAlign = 'center';
+    var signalStyle = getComputedStyle(root);
+    var headColor = signalStyle.getPropertyValue('--signal-head').trim();
+    var tailColor = signalStyle.getPropertyValue('--signal-tail').trim();
     // Sparse terminal-like streams stay at the edges of the instrument.
     [55, 89, 123, 477, 511, 545].forEach(function (x, column) {
       var head = ((time * (18 + column * 2) + column * 67) % 570) - 80;
       for (var row = 0; row < 9; row++) {
         var y = head - row * 22;
         if (y < 35 || y > 375) continue;
-        field.fillStyle = row === 0 ? '#647d77' : '#81968f';
+        field.fillStyle = row === 0 ? headColor : tailColor;
         field.globalAlpha = (1 - row / 10) * .5;
         var index = (column * 11 + row * 7 + Math.floor(time * 1.4)) % 18;
         field.fillText('01.:/+*<>ABCDEF[]{}'[index], x, y);
